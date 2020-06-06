@@ -1,4 +1,4 @@
-KUBERNETES k8s-resources
+KUBERNETES (k8s-resources)
 ================================================================================
 
 Comandos básicos en Minikube

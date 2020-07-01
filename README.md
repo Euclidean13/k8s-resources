@@ -26,5 +26,19 @@ Kubectl basic commands
 | 10. To see pod logs                                  | `kubectl logs <pod-name>`                                         |
 | 11. To see API version                               | `kubectl api-versions`                                            |
 | 12. To see the kind of element                       | `kubectl api-resources | grep Pod`                                |
-| 13. To apply a yamk manifesto                        | `kubectl apply -f pod.yaml`                                       |
+| 13. To apply a yaml manifesto (-f = file)            | `kubectl apply -f pod.yaml`                                       |
 | 14. To delete all resources running from a yaml file | `kubectl delete -f pod.yaml`                                      |
+| 15. To see container logs in a 2 contianer pod       | `kubectl logs <pod-name> -c <cont + contNumber>`                  |
+| 16. Sh into a container in a pod with 2 containers   | `kubectl exec -ti <pod-name> -c cont1 -- sh`                      |
+| 17. Filter pod by label                              | `kubectl get pods -l <metadata-label-key>=<metadata-label-value`> |
+
+
+YAML Notes
+--------------------------------------------------------------------------------
+
+### Labels (Very important)
+
+Metadata to indicate pod metadata in case we have several equal pods but for
+different purposes (different app, environment...). Be careful the pod name is
+not inside the labels medatadata. Also used by replicaset and deployment for
+managing the pods.

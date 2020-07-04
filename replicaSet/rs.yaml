@@ -1,0 +1,23 @@
+apiVersion: apps/v1 # apps = GROUP in api-resources
+kind: ReplicaSet # Replicaset = KIND in api-resources
+metadata:
+    name: rs # Replicaset name
+    labels:
+      app: rs-test # Replicaset name
+spec: # Replicaset specifications
+  replicas: 5
+  selector: # Replicaset find in all pods the following label, create them in case they do not exists
+    matchLabels:
+      app: pod-label
+  template: # POD template
+    metadata:
+      labels:
+        app: pod-label
+    spec:
+      containers:
+        - name: cont1
+          image: python:3.6-alpine
+          command: ["sh", "-c", "echo cont1 > index.html && python -m http.server 8082"]
+        - name: cont2
+          image: python:3.6-alpine
+          command: ["sh", "-c", "echo cont2 > index.html && python -m http.server 8083"]

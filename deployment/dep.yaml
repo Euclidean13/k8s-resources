@@ -1,0 +1,24 @@
+apiVersion: apps/v1 # apps = APIGROUP
+kind: Deployment
+metadata: # Deployment medatada
+  annotations:
+    kubernetes.io/change-cause: "Changes port to 110" # CHANGE-CAUSE when updating deployment
+  name: deployment-test
+  labels:
+    app: front
+spec: # ReplicaSet
+  revisionHistoryLimit: 2
+  replicas: 3
+  selector:
+    matchLabels:
+      app: front
+  template: # Pod
+    metadata:
+      labels:
+        app: front
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:alpine
+          ports:
+            - containerPort: 90

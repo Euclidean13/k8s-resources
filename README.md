@@ -13,24 +13,26 @@ Generic command for check short-names: `kubectl api-resources`
 
 ### 2.1. Pods
 
-| Description                                        | Command                                                           |
-| :------------------------------------------------- | :---------------------------------------------------------------- |
-| 1. List the pods                                   | `kubectl get pods`                                                |
-| 2. To create a pod                                 | `kubectl run --generator=run-pod/v1 podtest --image=nginx:alpine` |
-| 3. More pod information                            | `kubectl describe pod <pod-name>`                                 |
-| 4. To see k8s resources                            | `kubectl api-resources`                                           |
-| 5. To delete a pod                                 | `kubectl delete pod <pod-name>`                                   |
-| 6. To filter specific pod                          | `kubectl get pod <pod-name>`                                      |
-| 7. To see pod manifesto                            | `kubectl get pod <pod-name> -o yaml`                              |
-| 8. To forwarding pod port                          | `kubectl port-forward podtest 7000:80`                            |
-| 9. To go into a pod bash                           | `kubectl exec -ti <pod-name> -- sh`                               |
-| 10. To see pod logs                                | `kubectl logs <pod-name>`                                         |
-| 11. To see API version                             | `kubectl api-versions`                                            |
-| 12. To see the kind of element                     | `kubectl api-resources | grep Pod`                                |
-| 13. To see container logs in a 2 contianer pod     | `kubectl logs <pod-name> -c <cont + contNumber>`                  |
-| 14. Sh into a container in a pod with 2 containers | `kubectl exec -ti <pod-name> -c cont1 -- sh`                      |
-| 15. Filter pod by label                            | `kubectl get pods -l <metadata-label-key>=<metadata-label-value`> |
-| 16. Owner reference (applied by ReplicaSet)        | `kubectl get pod <pod name> -o yaml`                              |
+| Description                                        | Command                                                                          |
+| :------------------------------------------------- | :------------------------------------------------------------------------------- |
+| 1. List the pods                                   | `kubectl get pods`                                                               |
+| 2. To create a pod                                 | `kubectl run --generator=run-pod/v1 podtest --image=nginx:alpine`                |
+| 3. More pod information                            | `kubectl describe pod <pod-name>`                                                |
+| 4. To see k8s resources                            | `kubectl api-resources`                                                          |
+| 5. To delete a pod                                 | `kubectl delete pod <pod-name>`                                                  |
+| 6. To filter specific pod                          | `kubectl get pod <pod-name>`                                                     |
+| 7. To see pod manifesto                            | `kubectl get pod <pod-name> -o yaml`                                             |
+| 8. To forwarding pod port                          | `kubectl port-forward podtest 7000:80`                                           |
+| 9. To go into a pod bash                           | `kubectl exec -ti <pod-name> -- sh`                                              |
+| 10. To see pod logs                                | `kubectl logs <pod-name>`                                                        |
+| 11. To see API version                             | `kubectl api-versions`                                                           |
+| 12. To see the kind of element                     | `kubectl api-resources | grep Pod`                                               |
+| 13. To see container logs in a 2 contianer pod     | `kubectl logs <pod-name> -c <cont + contNumber>`                                 |
+| 14. Sh into a container in a pod with 2 containers | `kubectl exec -ti <pod-name> -c cont1 -- sh`                                     |
+| 15. Filter pod by label                            | `kubectl get pods -l <metadata-label-key>=<metadata-label-value`>                |
+| 16. Owner reference (applied by ReplicaSet)        | `kubectl get pod <pod name> -o yaml`                                             |
+| 17. To output more pod information (Ips)           | `kubectl get pods -l <label-key>=<label-value> -o wide`                          |
+| 18. 18. To create a temporal pod                   | `kubectl run --rm -ti --generator=run-pod/v1 podtest --image=nginx:alpine -- sh` |
 
 ### 2.2. ReplicaSet
 
@@ -57,13 +59,33 @@ Generic command for check short-names: `kubectl api-resources`
 | 10. To see an specific history REVISION | `kubectl rollout history deployment <deployment-name> --revision=<number-revision>` |
 | 11.  To rollback a deployment           | `kubectl rollout undo deployment <deployment-name> --to-revision=<revision-number>` |
 
-### 2.4 YAML file
+### 2.4 Services
 
-| Description                                          | Command                                                |
-| :--------------------------------------------------- | :----------------------------------------------------- |
-| 1. To apply a yaml manifesto (-f = file)             | `kubectl apply -f pod.yaml`                            |
-| 2. To delete all resources running from a yaml file  | `kubectl delete -f pod.yaml`                           |
-| 3. To save command the in the history (CHANGE-CAUSE) | `kubectl rollout history deployment <deployment-name>` |
+| Description                | Command                                        |
+| :------------------------- | :--------------------------------------------- |
+| 1. List services           | `kubectl get svc`                              |
+| 2. To filter the services  | `kubectl get svc -l <label-key>=<label-value>` |
+| 3. To describe the service | `kubectl describe svc <service-name>`          |
+| 4. To get the endpoints    | `kubectl get endpoints`                        |
+
+### 2.5 Namespaces
+
+| Description                      | Command                                         |
+| :------------------------------- | :---------------------------------------------- |
+| 1. List namespaces               | `kubectl get namespaces`                        |
+| 2. To see pod inside a namespace | `kubectl get pods --namespace <namespace-name>` |
+| 3. To get all inside a namespace | `kubectl get all -n <namespace-name>`           |
+| 4. To create a namespace         | `kubectl create namespace <namespace-name>`     |
+| 5. To see namespaces labels      | `kubectl get namespaces --show-labels`          |
+| 6. To describe a namespace       | `kubectl describe namespaces <namespace-name>`  |
+
+### 2.6 YAML file
+
+| Description                                         | Command                                                |
+| :-------------------------------------------------- | :----------------------------------------------------- |
+| 1. To apply a yaml manifesto (-f = file)            | `kubectl apply -f pod.yaml`                            |
+| 2. To delete all resources running from a yaml file | `kubectl delete -f pod.yaml`                           |
+| 3. To see command run in the history (CHANGE-CAUSE) | `kubectl rollout history deployment <deployment-name>` |
 
 ## 3. YAML Notes
 
@@ -79,6 +101,18 @@ managing the pods.
 #### 3.1.2. Owner references
 
 Indicates the parent owner of the replicaSet.
+
+#### 3.1.3. Image policy
+
+To check for images locally before looking to remote images:
+
+```yaml
+  spec:
+    containers:
+    - name: backend
+      image: k8s-hands-on
+      imagePullPolicy: IfNotPresent
+```
 
 ### 3.2. Replicaset
 
@@ -117,3 +151,36 @@ kubectl rollout undo deployment <deployment-name> --to-revision=<revision-number
 
 Remember that by default we have 10 old ReplicaSet old version to rollback to,
 in case it is necessary.
+
+### 3.4 Services
+
+By default TYPE = ClusterIp. It is a virtual Ip that works as the entrance of our pods.
+name: *my-service* :arrow_right: It is also the DNS of the service.
+
+#### 3.4.1. ClusterIp
+
+Exposes the Service on a cluster-internal IP. Choosing this value makes the
+Service only reachable from within the cluster. This is the default `ServiceType`.
+
+```yaml
+[...]
+  spec:
+    type: ClusterIp
+```
+
+#### 3.4.2. NodePort
+
+ Exposes the Service on each Node's IP at a static port (the NodePort). A
+ ClusterIP Service, to which the NodePort Service routes, is automatically
+ created. You'll be able to contact the NodePort Service, from outside the
+ cluster, by requesting `<NodeIP>`:`<NodePort>`.
+
+```yaml
+[...]
+  spec:
+    type: NodePort
+```
+
+For checking the NodePort execute:
+`kubectl get svc -l <label-key>=<label-value>`
+And check the PORTs field and see the mapped port: `8080:32358/TCP`.

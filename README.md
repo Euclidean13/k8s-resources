@@ -70,16 +70,27 @@ Generic command for check short-names: `kubectl api-resources`
 
 ### 2.5 Namespaces
 
-| Description                      | Command                                         |
-| :------------------------------- | :---------------------------------------------- |
-| 1. List namespaces               | `kubectl get namespaces`                        |
-| 2. To see pod inside a namespace | `kubectl get pods --namespace <namespace-name>` |
-| 3. To get all inside a namespace | `kubectl get all -n <namespace-name>`           |
-| 4. To create a namespace         | `kubectl create namespace <namespace-name>`     |
-| 5. To see namespaces labels      | `kubectl get namespaces --show-labels`          |
-| 6. To describe a namespace       | `kubectl describe namespaces <namespace-name>`  |
+| Description                         | Command                                                                               |
+| :---------------------------------- | :------------------------------------------------------------------------------------ |
+| 1. List namespaces                  | `kubectl get namespaces`                                                              |
+| 2. To see pod inside a namespace    | `kubectl get pods --namespace <namespace-name>`                                       |
+| 3. To get all inside a namespace    | `kubectl get all -n <namespace-name>`                                                 |
+| 4. To create a namespace            | `kubectl create namespace <namespace-name>`                                           |
+| 5. To see namespaces labels         | `kubectl get namespaces --show-labels`                                                |
+| 6. To describe a namespace          | `kubectl describe namespaces <namespace-name>`                                        |
+| 6. To run a pode inside a namespace | `kubectl run --generator=run-pod/v1 podtest --image=nginx:alpine -n <namespace-name>` |
+| 7. To delete a namespace            | `kubecttl delete namespaces <namespace-name>`                                         |
 
-### 2.6 YAML file
+### 2.6 Context
+
+| Description                     | Command                                                                                              |
+| :------------------------------ | :--------------------------------------------------------------------------------------------------- |
+| 1. To get current context       | `kubectl config current-context`                                                                     |
+| 2. To see current config        | `kubectl config view`                                                                                |
+| 3. To create a context          | `kubectl config set-context <context-name> --namespace=<ns-name> --cluster=minikube --user=minikube` |
+| 4. To switch to another context | `kubectl config use-context <context-name>`                                                          |
+
+### 2.7 YAML file
 
 | Description                                         | Command                                                |
 | :-------------------------------------------------- | :----------------------------------------------------- |

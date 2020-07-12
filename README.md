@@ -90,7 +90,14 @@ Generic command for check short-names: `kubectl api-resources`
 | 3. To create a context          | `kubectl config set-context <context-name> --namespace=<ns-name> --cluster=minikube --user=minikube` |
 | 4. To switch to another context | `kubectl config use-context <context-name>`                                                          |
 
-### 2.7 YAML file
+### 2.7 POD limits RAM and CPU
+
+| Description                   | Command                             |
+| :---------------------------- | :---------------------------------- |
+| 1. To see the use of the NODE | `kubectl get nodes`                 |
+| 2. Describe the NODE          | `kubectl describe node <node-name>` |
+
+### 2.8 YAML file
 
 | Description                                         | Command                                                |
 | :-------------------------------------------------- | :----------------------------------------------------- |

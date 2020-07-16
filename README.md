@@ -80,6 +80,7 @@ Generic command for check short-names: `kubectl api-resources`
 | 6. To describe a namespace          | `kubectl describe namespaces <namespace-name>`                                        |
 | 6. To run a pode inside a namespace | `kubectl run --generator=run-pod/v1 podtest --image=nginx:alpine -n <namespace-name>` |
 | 7. To delete a namespace            | `kubecttl delete namespaces <namespace-name>`                                         |
+| 8. To see limitRange                | `kubectl describe ns <namespace-name>`                                                |
 
 ### 2.6 Context
 
@@ -97,13 +98,21 @@ Generic command for check short-names: `kubectl api-resources`
 | 1. To see the use of the NODE | `kubectl get nodes`                 |
 | 2. Describe the NODE          | `kubectl describe node <node-name>` |
 
-### 2.8 YAML file
+### 2.9 LimitRange
 
-| Description                                         | Command                                                |
-| :-------------------------------------------------- | :----------------------------------------------------- |
-| 1. To apply a yaml manifesto (-f = file)            | `kubectl apply -f pod.yaml`                            |
-| 2. To delete all resources running from a yaml file | `kubectl delete -f pod.yaml`                           |
-| 3. To see command run in the history (CHANGE-CAUSE) | `kubectl rollout history deployment <deployment-name>` |
+| Description                | Command                                        |
+| :------------------------- | :--------------------------------------------- |
+| 1. To see limit range      | `kubectl describe limitranges min-max -n prod` |
+| 2. Also to see limit range | `kubectl describe ns <namespace-name>`         |
+
+### 2.10 YAML file
+
+| Description                                         | Command                                                        |
+| :-------------------------------------------------- | :------------------------------------------------------------- |
+| 1. To apply a yaml manifesto (-f = file)            | `kubectl apply -f pod.yaml`                                    |
+| 2. To delete all resources running from a yaml file | `kubectl delete -f pod.yaml`                                   |
+| 3. To see command run in the history (CHANGE-CAUSE) | `kubectl rollout history deployment <deployment-name>`         |
+| 4. To output in yaml and using grep                 | `kubectl get pod podtest3 -o yaml -n dev | grep -i limits -C3` |
 
 ## 3. YAML Notes
 

@@ -1,0 +1,51 @@
+######
+# Notes
+# When a resourceQuota is used it is a must define the requests and the limits
+# in the pods. In order to leave to the ResourceQuota to add all the limits
+# and check that there is not over the ResourceQuota limit.
+######
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: uat
+  labels:
+    name: uat
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: mem-cpu-demo
+  namespace: uat
+spec:
+  hard:
+    requests.cpu: "1"
+    requests.memory: 1Gi
+    limits.cpu: "2"
+    limits.memory: 2Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-test
+  namespace: uat
+  labels:
+    app: front
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: front
+  template: # Pod
+    metadata:
+      labels:
+        app: front
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:alpine
+          resources:
+            memory: 500M
+            cpu: 500m
+          limits:
+            memory: 500M
+            cpu: 500m

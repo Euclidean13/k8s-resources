@@ -105,7 +105,13 @@ Generic command for check short-names: `kubectl api-resources`
 | 1. To see limit range      | `kubectl describe limitranges min-max -n prod` |
 | 2. Also to see limit range | `kubectl describe ns <namespace-name>`         |
 
-### 2.10 YAML file
+### 2.12 ResourceQuota
+
+| Description                   | Command                                        |
+| :---------------------------- | :--------------------------------------------- |
+| 1. To describe resource quota | `kubectl describe resourcequotas <quota-name>` |
+
+### 2.11 YAML file
 
 | Description                                         | Command                                                        |
 | :-------------------------------------------------- | :------------------------------------------------------------- |

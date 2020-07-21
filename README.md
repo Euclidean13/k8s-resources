@@ -110,6 +110,7 @@ Generic command for check short-names: `kubectl api-resources`
 | Description                   | Command                                        |
 | :---------------------------- | :--------------------------------------------- |
 | 1. To describe resource quota | `kubectl describe resourcequotas <quota-name>` |
+2. 
 
 ### 2.11 YAML file
 

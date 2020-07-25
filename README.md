@@ -105,14 +105,22 @@ Generic command for check short-names: `kubectl api-resources`
 | 1. To see limit range      | `kubectl describe limitranges min-max -n prod` |
 | 2. Also to see limit range | `kubectl describe ns <namespace-name>`         |
 
-### 2.12 ResourceQuota
+### 2.10 ResourceQuota
 
 | Description                   | Command                                        |
 | :---------------------------- | :--------------------------------------------- |
 | 1. To describe resource quota | `kubectl describe resourcequotas <quota-name>` |
-2. 
 
-### 2.11 YAML file
+### 2.11 ConfigMaps
+
+| Description                                      | Command                                                                      |
+| :----------------------------------------------- | :--------------------------------------------------------------------------- |
+| 1. To create a configmap                         | `kubectl create configmap <choose-name> --from-file=<configmap-file-path>`   |
+| 2. To get the configmap                          | `kubectl get cm`                                                             |
+| 3. To describe the configmap                     | `kubectl describe configmaps <configmap-name>`                               |
+| 4. To take into the configmap more than one file | `kubectl create configmap <choose-name> --from-file=<configmap-folder-path>` |
+
+### 2.12 YAML file
 
 | Description                                         | Command                                                        |
 | :-------------------------------------------------- | :------------------------------------------------------------- |

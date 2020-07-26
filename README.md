@@ -120,6 +120,14 @@ Generic command for check short-names: `kubectl api-resources`
 | 3. To describe the configmap                     | `kubectl describe configmaps <configmap-name>`                               |
 | 4. To take into the configmap more than one file | `kubectl create configmap <choose-name> --from-file=<configmap-folder-path>` |
 
+### 2.12 Secrets
+
+| Description           | Command                                                                      |
+| :-------------------- | :--------------------------------------------------------------------------- |
+| 1. To create a secret | `kubectl create secret generic <choose-name> --from-file=<secret-file-path>` |
+| 2. To get secrets     | `kubectl get secrets`                                                        |
+| 3. To describe secret | `kubectl describe secrets <secrets-name>`                                    |
+
 ### 2.12 YAML file
 
 | Description                                         | Command                                                        |

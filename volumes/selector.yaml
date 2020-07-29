@@ -1,0 +1,47 @@
+# PV 1: The one of charge to create the hardware resources for the volumes
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: task-pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce # The PV can be used one at once. I.e: two pods can't use it at the same time
+  hostPath:
+    path: "/test" # Where is going to be located the real capacity
+---
+# PV 2
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: task-pv-volume2
+  labels:
+    mysql: ready
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce # The PV can be used one at once. I.e: two pods can't use it at the same time
+  hostPath:
+    path: "/mysql" # Where is going to be located the real capacity
+---
+# PVC: To claim the PV space created
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: task-pvp-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  selector: # To choose a PV
+    matchLabels:
+      mysql: ready

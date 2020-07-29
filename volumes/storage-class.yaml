@@ -1,0 +1,14 @@
+# PVC: No selectors because it is going to be dynamic. As this PVC has no PV
+# associated its going to use the dynamic provisioning, thanks to the storage
+# class, it will create a PV associated to that PVC
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sc-pvc
+spec:
+  # storageClassName: standard -> by default k8s will take this one, the minikube one
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi

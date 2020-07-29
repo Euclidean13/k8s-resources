@@ -1,0 +1,61 @@
+# PV
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: test-pv
+  labels:
+    mysql: ready
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce # The PV can be used one at once. I.e: two pods can't use it at the same time
+  hostPath: # It is using the Node to save the volumen
+    path: "/mysql" # Where is going to be located the real capacity
+---
+# PVC: To claim the PV space created
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: test-pvc
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  selector: # To choose a PV
+    matchLabels:
+      mysql: ready
+---
+apiVersion: apps/v1 # apps = APIGROUP
+kind: Deployment
+metadata: # Deployment medatada
+  name: mysql
+  labels:
+    app: mysql
+spec: # ReplicaSet
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template: # Pod
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: msql:5.7
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "12345678"
+          volumeMounts:
+            - mountPath: "/var/lib/mysql"
+              name: vol-mysql
+      volumes:
+        - name: vol-mysql
+          persistentVolumeClaim:
+            claimName: test-pvc

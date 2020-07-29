@@ -128,7 +128,15 @@ Generic command for check short-names: `kubectl api-resources`
 | 2. To get secrets     | `kubectl get secrets`                                                        |
 | 3. To describe secret | `kubectl describe secrets <secrets-name>`                                    |
 
-### 2.12 YAML file
+### 2.13 PV and PVC
+
+| Description                 | Command           |
+| :-------------------------- | :---------------- |
+| 1. To get a pvc             | `kubectl get pvc` |
+| 2. To get a pv              | `kubectl get pv`  |
+| 3. To get the storage class | `kubectl get sc`  |
+
+### 2.14 YAML file
 
 | Description                                         | Command                                                        |
 | :-------------------------------------------------- | :------------------------------------------------------------- |
@@ -136,6 +144,12 @@ Generic command for check short-names: `kubectl api-resources`
 | 2. To delete all resources running from a yaml file | `kubectl delete -f pod.yaml`                                   |
 | 3. To see command run in the history (CHANGE-CAUSE) | `kubectl rollout history deployment <deployment-name>`         |
 | 4. To output in yaml and using grep                 | `kubectl get pod podtest3 -o yaml -n dev | grep -i limits -C3` |
+
+### 2.15 Generics
+
+| Description                                | Command                               |
+| :----------------------------------------- | :------------------------------------ |
+| 1. To edit the configuration of any object | `kubectl edit <object> <object-name>` |
 
 ## 3. YAML Notes
 

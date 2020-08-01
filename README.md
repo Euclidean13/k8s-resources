@@ -136,7 +136,24 @@ Generic command for check short-names: `kubectl api-resources`
 | 2. To get a pv              | `kubectl get pv`  |
 | 3. To get the storage class | `kubectl get sc`  |
 
-### 2.14 YAML file
+### 2.14 RBAC (Role Base Access Control)
+
+| Description                         | Command                                                                           |
+| :---------------------------------- | :-------------------------------------------------------------------------------- |
+| 1. To see the certificate authority | `kubectl config view`                                                             |
+| 2. To see the cluster info (IP)     | `kubectl cluster-info`                                                            |
+| 3. To see cluster config            | `kubectl config view`                                                             |
+| 4. To see current contex            | `kubectl config current-context`                                                  |
+| 5. To use a context                 | `kubectl config use-context <context-name>`                                       |
+| 6. To see if RBAC is enabled        | `kubectl cluster-info dump | grep authorization-mode`                             |
+| 7. Enable RBAC in minikube          | `minikube start --vm-drive=none --extra-config=apiserver.authorization-mode=RBAC` |
+| 8. To see the roles                 | `kubectl get roles`                                                               |
+| 9. To describe a role               | `kubectl describe role <role-name> -n <name-namespace>`                           |
+| 10. To get Role Binding             | `kubectl get rolebinding`                                                         |
+| 11. To describe Role Binding        | `kubectl describe rolebinding <rolebinding-name>`                                 |
+| 12. To see all the cluster roles    | `kubectl get clusterroles`                                                        |
+
+### 2.15 YAML file
 
 | Description                                         | Command                                                        |
 | :-------------------------------------------------- | :------------------------------------------------------------- |
@@ -145,11 +162,11 @@ Generic command for check short-names: `kubectl api-resources`
 | 3. To see command run in the history (CHANGE-CAUSE) | `kubectl rollout history deployment <deployment-name>`         |
 | 4. To output in yaml and using grep                 | `kubectl get pod podtest3 -o yaml -n dev | grep -i limits -C3` |
 
-### 2.15 Generics
+### 2.16 Generics
 
-| Description                                | Command                               |
-| :----------------------------------------- | :------------------------------------ |
-| 1. To edit the configuration of any object | `kubectl edit <object> <object-name>` |
+| Description                                | Command                                |
+| :----------------------------------------- | :------------------------------------- |
+| 1. To edit the configuration of any object | `kubectl edit <object>  <object-name>` |
 
 ## 3. YAML Notes
 

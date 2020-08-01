@@ -1,6 +1,6 @@
 # PVC: No selectors because it is going to be dynamic. As this PVC has no PV
 # associated its going to use the dynamic provisioning, thanks to the storage
-# class, it will create a PV associated to that PVC
+# class, it will create a PV associated to that PVC.
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -12,3 +12,5 @@ spec:
   resources:
     requests:
       storage: 20Gi
+# IT IS USED A LOT with volumes in cloud, because you can create a storage class
+# that creates dynamically PVs for the cloud services.

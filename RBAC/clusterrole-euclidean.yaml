@@ -1,0 +1,24 @@
+# CLUSTERROLE: It has access to all namespaces, beacuse of that there is no
+# namespace specified
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cluster-pod-reader
+rules:
+  - apiGroups: [""] # Indicates the core API group
+    resources: ["pods"]
+    verbs: ["get", "watch", "list"] # RBAC verbs chosen
+---
+# Cluster Role Binding. It has not namespace associated
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cluster-read-pods
+subject:
+  - kind: User
+    name: euclidean
+    apiGroup: rbac.authorization.k8s.io
+roleRef: # Specifies the binding to a Role or a ClusterRole
+  kind: ClusterRole
+  name: cluster-pod-reader
+  apiGroup: rbac.authorization.k8s.io

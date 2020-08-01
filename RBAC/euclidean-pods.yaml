@@ -1,0 +1,25 @@
+# To create a ROLE: It is a POD reader ROLE (no delete, create ...)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default
+  name: pod-reader
+rules:
+  - apiGroups: [""] # Indicates the core API group
+    resources: ["pods"]
+    verbs: ["get", "watch", "list"] # RBAC verbs chosen
+---
+# Role Binding
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: read-pods
+  namespace: default
+subject:
+  - kind: User
+    name: euclidean
+    apiGroup: rbac.authorization.k8s.io
+roleRef: # Specifies the binding to a Role or a ClusterRole
+  kind: Role
+  name: pod-reader
+  apiGroup: rbac.authorization.k8s.io

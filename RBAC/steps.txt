@@ -1,0 +1,19 @@
+
+## RBAC
+minikube start --vm-driver=none  --extra-config=apiserver.authorization-mode=RBAC
+
+## Create keys and sign
+openssl genrsa -out euclidean13.key 2048
+openssl req -new -key euclidean13.key -out euclidean13.csr -subj "/CN=euclidean13/O=dev"
+sudo openssl x509 -req -in euclidean13.csr -CA /root/.minikube/ca.crt -CAkey /root/.minikube/ca.key -CAcreateserial -out euclidean13.crt -days 500
+openssl x509 -in  euclidean13.crt  -noout -text
+
+## Isolated env
+kubectl config view  | grep server
+docker run --rm -ti -v $PWD:/test -w /test  -v /root/.minikube/ca.crt:/ca.crt -v /usr/bin/kubectl:/usr/bin/kubectl alpine sh
+
+## Configure kubectl for user
+kubectl config set-cluster minikube --server=https://192.168.1.140:8443 --certificate-authority=/ca.crt
+kubectl config set-credentials euclidean13 --client-certificate=euclidean13.crt --client-key=euclidean13.key
+kubectl config set-context euclidean13 --cluster=minikube --user=euclidean13
+kubectl config use-context euclidean13

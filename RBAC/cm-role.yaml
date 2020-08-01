@@ -1,0 +1,45 @@
+# Namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+  labels:
+    name: dev
+---
+# To create a ROLE: It is a POD reader ROLE (no delete, create ...)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: dev
+  name: cm-role
+rules:
+  - apiGroups: [""] # Indicates the core API group
+    resources: ["configmaps"]
+    verbs: ["get", "watch", "list", "patch", "delete"] # RBAC verbs chosen
+---
+# Role Binding
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cm-role
+  namespace: dev
+subject:
+  - kind: User
+    name: euclidean
+    apiGroup: rbac.authorization.k8s.io
+roleRef: # Specifies the binding to a Role or a ClusterRole
+  kind: Role
+  name: cm-role
+  apiGroup: rbac.authorization.k8s.io
+---
+# ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: dev
+  name: vars
+  labels:
+    app: front
+data:
+  db_host: dev.host.local
+  db_user: dev_user

@@ -61,12 +61,13 @@ Generic command for check short-names: `kubectl api-resources`
 
 ### 2.4 Services
 
-| Description                | Command                                        |
-| :------------------------- | :--------------------------------------------- |
-| 1. List services           | `kubectl get svc`                              |
-| 2. To filter the services  | `kubectl get svc -l <label-key>=<label-value>` |
-| 3. To describe the service | `kubectl describe svc <service-name>`          |
-| 4. To get the endpoints    | `kubectl get endpoints`                        |
+| Description                                | Command                                              |
+| :----------------------------------------- | :--------------------------------------------------- |
+| 1. List services                           | `kubectl get svc`                                    |
+| 2. To filter the services                  | `kubectl get svc -l <label-key>=<label-value>`       |
+| 3. To describe the service                 | `kubectl describe svc <service-name>`                |
+| 4. To get the endpoints                    | `kubectl get endpoints`                              |
+| 5. To see service external IP from cluster | `minikube service <service-name> --url -n <ns-name>` |
 
 ### 2.5 Namespaces
 
@@ -136,7 +137,7 @@ Generic command for check short-names: `kubectl api-resources`
 | 2. To get a pv              | `kubectl get pv`  |
 | 3. To get the storage class | `kubectl get sc`  |
 
-### 2.14 RBAC (Role Base Access Control)
+### 2.14 RBAC (Role Base Access Control): Users and Groups
 
 | Description                         | Command                                                                           |
 | :---------------------------------- | :-------------------------------------------------------------------------------- |
@@ -153,7 +154,16 @@ Generic command for check short-names: `kubectl api-resources`
 | 11. To describe Role Binding        | `kubectl describe rolebinding <rolebinding-name>`                                 |
 | 12. To see all the cluster roles    | `kubectl get clusterroles`                                                        |
 
-### 2.15 YAML file
+### 2.15 RBAC (Role Base Access Control): Service Accounts 
+
+| Description                                  | Command                                     |
+| :------------------------------------------- | :------------------------------------------ |
+| 1. To get the services accounts              | `kubectl get serviceaccount`                |
+| 2. To get the service account of a namespace | `kubectl get sa -n <namespace-name>`        |
+| 3. To describe a service account             | `kubectl describe serviceaccount <sa-name>` |
+| 4. Service accounts kube system              | `kubectl get sa -n kube-system`             |
+
+### 2.16 YAML file
 
 | Description                                         | Command                                                        |
 | :-------------------------------------------------- | :------------------------------------------------------------- |
@@ -162,7 +172,7 @@ Generic command for check short-names: `kubectl api-resources`
 | 3. To see command run in the history (CHANGE-CAUSE) | `kubectl rollout history deployment <deployment-name>`         |
 | 4. To output in yaml and using grep                 | `kubectl get pod podtest3 -o yaml -n dev | grep -i limits -C3` |
 
-### 2.16 Generics
+### 2.17 Generics
 
 | Description                                | Command                                |
 | :----------------------------------------- | :------------------------------------- |

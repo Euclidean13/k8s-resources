@@ -1,0 +1,53 @@
+# Service Account
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: my-sa
+---
+# Deployment
+apiVersion: apps/v1 # apps = APIGROUP
+kind: Deployment
+metadata: # Deployment medatada
+  name: test
+  labels:
+    app: front
+spec: # ReplicaSet
+  replicas: 1
+  selector:
+    matchLabels:
+      app: front
+  template: # Pod
+    metadata:
+      labels:
+        app: front
+    spec:
+      serviceAccountName: my-sa
+      containers:
+        - name: nginx
+          image: nginx:alpine
+---
+# ROLE
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default
+  name: sa-reader
+rules:
+  - apiGroups: [""] # Indicates the core API group
+    resources: ["pods"]
+    verbs: ["get", "watch", "list"] # RBAC verbs chosen
+---
+# Role Binding
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: sa-pods
+  namespace: default
+subject:
+  - kind: ServiceAccount
+    name: my-sa
+    apiGroup: ""
+roleRef: # Specifies the binding to a Role or a ClusterRole
+  kind: Role
+  name: sa-reader
+  apiGroup: rbac.authorization.k8s.io
